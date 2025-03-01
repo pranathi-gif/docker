@@ -1,21 +1,11 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: my-docker-app
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: my-docker-app
-  template:
-    metadata:
-      labels:
-        app: my-docker-app
-    spec:
-      containers:
-      - name: my-docker-container
-        image: my_docker_project:latest
-        imagePullPolicy: Never   # <-- Prevent Kubernetes from pulling remotely
-        ports:
-        - containerPort: 80
+version: '3'
+services:
+  my-container:
+    image: polimepi  # Replace with your image name
+    deploy:
+      replicas: 2  # Deploy two replicas
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8080:80"
 
